@@ -1,0 +1,179 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: Arial;
+  background-color: #f7f7f2;
+  color:#28332b;
+  background-image: url('C:\Users\rokec\OneDrive\Desktop\RIS\frontend\public\images\odzadje-recept.png');
+  background-repeat: no-repeat;
+  background-position: right top;
+  background-size: cover;
+  background-attachment: fixed;
+}
+
+.App {
+  min-height: 100vh;
+}
+
+.App-header {
+  background-color: #315c42;
+  color: whitesmoke;
+  padding: 25px;
+  position: sticky;
+  top: 0;
+}
+
+.header h1 {
+  margin: 0 0 10px;
+  font-size: 32px;
+  font-family: 'Playfair Display', serif;;
+}
+
+.header p {
+  margin: 0;
+  color: #e1eee3;
+  font-family: 'Trebuchet MS', sans-serif;
+}
+
+.main {
+  max-width: 1000px;
+  margin: 40px auto;
+  padding: 24px;
+}
+
+.section-header {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.section-header h2 {
+  margin: 0%;
+  font-size: 26px;
+}
+
+.dodaj-gumb{
+  background: #e59b42;
+  color: black;
+  border: none;
+  border-radius: 8px;
+  padding:12px 18px;
+  font-weight: bold;
+}
+
+.recept-kartica {
+  display: flex;
+  align-items: center;
+  padding: 22px;
+  background: whitesmoke;
+  border: 1px solid #e6e6dd;
+  border-radius: 12px;
+  box-shadow: 0 3px 10px #00000008;
+}
+
+.recept-info h3{
+  margin:0 0 9px;
+}
+
+.recept-info p{
+  margin:0 0 12px;
+  color: #68736b;
+}
+
+.recept-info span {
+  color: #315c42;
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.recept-info button {
+  margin: 8px 8px 0 0;
+  padding: 7px 12px;
+  border: 1px solid #d8c6b5;
+  border-radius: 9px;
+  background: #f4ece3;
+  color: #5b4535;
+  font: inherit;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.main form {
+  max-width: 600px;
+  margin: 0 auto 35px;
+  padding: 30px;
+  background: #fffdf9;
+  border: 1px solid #eee4d8;
+  border-radius: 18px;
+  box-shadow: 0 8px 28px rgba(75, 56, 38, 0.07);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  box-sizing: border-box;
+}
+
+
+.main form input,
+.main form textarea {
+  width: 100%;
+  padding: 8px 10px;
+  border: 1px solid #dfd2c4;
+  border-radius: 10px;
+  background-color: #fff;
+  color: #3f382f;
+  font: inherit;
+  font-size: 0.95rem;
+  box-sizing: border-box;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.main form textarea {
+  min-height: 20px;
+  resize: vertical;
+}
+
+.main form input:focus,
+.main form textarea:focus {
+  outline: none;
+  border-color: #a67c5b;
+  box-shadow: 0 0 0 3px rgba(166, 124, 91, 0.14);
+}
+
+.main form button {
+  margin-top: 15px;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 10px;
+  background-color: #806044;
+  color: white;
+  font: inherit;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+
+.iskanje-receptov,
+select {
+  padding: 10px;
+  margin: 10px 10px 20px 0;
+  border: 1px solid #c8b69f;
+  border-radius: 8px;
+  font-size: 15px;
+  background-color: #fffaf3;
+  color: #4a3728;
+}
+
+.iskanje-receptov {
+  width: 250px;
+  max-width: 100%;
+}
+
+.iskanje-receptov:focus,
+select:focus {
+  outline: none;
+  border-color: #8b6548;
+}
