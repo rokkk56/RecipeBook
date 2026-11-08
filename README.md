@@ -18,28 +18,28 @@ Namen aplikacije je omogočiti preprosto in pregledno upravljanje kuharskih rece
 
 ### Frontend
 - React 19.3.1
-- JavaScript
-- HTML
-- CSS
+- JavaScript ES6+
+- HTML HTML5
+- CSS CSS3
 - Axios 1.20.0
-- Node.js in npm
+- Node.js 25.9.0
+- npm 11.12.1
 
 ### Backend
 - Java 25
 - Spring Boot 4.1.1
-- Spring Data JPA
-- Maven
-- Hibernate
-- PostgreSQL
+- Spring Data JPA 4.1.1
+- Maven 3.10.0
+- Hibernate 7.4.5.Final
+- PostgreSQL 18.3
 - Springdoc OpenAPI 3.1.0
 
 ### Orodja
-- IntelliJ IDEA (uporabljen za razvoj backenda)
-- Visual Studio Code (uporabljen za razvoj frontenda)
-- Git
-- GitHub
-- Docker Desktop
-- Swagger UI
+- Docker Desktop / Docker Engine 29.2.1
+- Docker Compose 5.1.0
+- Git 2.54.0
+- GitHub spletna platforma
+- Swagger UI 5.32.11
 
 
 ## 3. Struktura projekta
@@ -97,45 +97,145 @@ RecipeBook/
 - `application.properties` vsebuje konfiguracijo aplikacije in podatkovne baze.
 - `pom.xml` vsebuje odvisnosti in nastavitve Maven projekta.
 
+**Glavne datoteke projekta:**
+
+- docker-compose.yml vsebuje konfiguracijo za zagon PostgreSQL podatkovne baze v Dockerju.
+- .env vsebuje lokalne okoljske spremenljivke in geslo za podatkovno bazo. Datoteka ni vključena v Git repozitorij.
+- .gitignore določa datoteke in mape, ki se ne nalagajo na GitHub.
 
 ## 4. Navodila za namestitev in zagon
 
-### Predpogoji
+### 4.1 Predpogoji
 
 Za zagon projekta potrebujemo:
+
 - Java JDK 25.
-- Node.js in npm.
-- PostgreSQL podatkovno bazo.
-- Docker Desktop za zagon PostgreSQL vsebnika.
+- Node.js 25.9.0 in npm 11.12.1.
+- Docker Desktop z Docker Compose.
 - Git.
 
-### 4.1 Zagon podatkovne baze
+Za razvoj priporočamo IntelliJ IDEA za backend in Visual Studio Code za frontend.
 
-Najprej zaženemo Docker Desktop in PostgreSQL vsebnik.
+### 4.2 Prenos projekta
 
-Podatkovna baza mora imeti naslednje nastavitve:
-- Ime baze: moja_baza
-- Uporabniško ime: postgres
-- Vrata: 5432
+Projekt prenesemo z GitHub repozitorija:
 
-### 4.2 Zagon backenda
+```bash
+git clone https://github.com/rokkk56/RecipeBook.git
+cd RecipeBook
+```
+
+### 4.3 Nastavitev okoljske datoteke
+
+V glavni mapi projekta ustvarimo datoteko `.env`.
+
+V datoteko dodamo:
+
+```env
+POSTGRES_PASSWORD=izberi_svoje_geslo
+```
+
+Namesto `izberi_svoje_geslo` uporabimo lastno geslo.
+
+Datoteke `.env` ne nalagamo na GitHub, saj vsebuje občutljive podatke.
+
+### 4.4 Zagon podatkovne baze z Dockerjem
+
+Najprej zaženemo Docker Desktop.
+
+V terminalu, znotraj glavne mape projekta, izvedemo:
+
+```bash
+docker compose up -d
+```
+
+Docker Compose samodejno ustvari PostgreSQL vsebnik in podatkovno bazo.
+
+Nastavitve podatkovne baze:
+
+| Nastavitev | Vrednost |
+|---|---|
+| Ime vsebnika | recipebook-postgres |
+| Docker image | postgres:18.3 |
+| Ime baze | recipebook |
+| Uporabniško ime | postgres |
+| Geslo | Vrednost iz datoteke `.env` |
+| Vrata računalnika | 5433 |
+| Vrata vsebnika | 5432 |
+| Docker volume | recipebook-data |
+
+Podatki se shranjujejo v ločen Docker volume `recipebook-data`, zato so ločeni od drugih lokalnih projektov.
+
+Za preverjanje delovanja vsebnika uporabimo:
+
+```bash
+docker ps
+```
+
+Za ustavitev vsebnika uporabimo:
+
+```bash
+docker compose down
+```
+
+Ukaz `docker compose down` ne izbriše podatkov v Docker volume.
+
+### 4.5 Zagon backenda
 
 1. Odpremo mapo `backend` v IntelliJ IDEA.
 2. Počakamo, da Maven naloži vse potrebne odvisnosti.
-3. Zaženemo datoteko `BackendApplication.java`.
-4. Backend je dostopen na naslovu: http://localhost:8080
+3. V konfiguraciji zagona `BackendApplication` nastavimo okoljsko spremenljivko:
+
+```text
+POSTGRES_PASSWORD=geslo_iz_datoteke_env
+```
+
+Uporabimo isto geslo, kot smo ga nastavili v glavni datoteki `.env`.
+
+4. Zaženemo datoteko `BackendApplication.java`.
+
+Backend je dostopen na naslovu:
+
+[http://localhost:8080](http://localhost:8080)
 
 Swagger dokumentacija je dostopna na:
 
-http://localhost:8080/swagger-ui/index.html
+[http://localhost:8080/swagger-ui/index.html](http://localhost:8080/swagger-ui/index.html)
 
-### 4.3 Zagon frontenda
+### 4.6 Zagon frontenda
 
 1. Odpremo mapo `frontend` v Visual Studio Code.
-2. Odpremo terminal.
-3. Izvedemo ukaz: npm install
-4. Nato zaženemo aplikacijo: npm start
-5. Frontend je dostopen na naslovu: http://localhost:3000
+2. Preverimo, ali datoteka `frontend/.env` vsebuje naslov backenda:
+
+```env
+REACT_APP_BASE_URL=http://localhost:8080/api
+```
+
+3. Odpremo terminal.
+4. Izvedemo ukaz:
+
+```bash
+npm install
+```
+
+5. Zaženemo aplikacijo:
+
+```bash
+npm start
+```
+
+Frontend je dostopen na naslovu:
+
+[http://localhost:3000](http://localhost:3000)
+
+### 4.7 Vrstni red zagona
+
+Za pravilno delovanje aplikacije upoštevamo naslednji vrstni red:
+
+1. Zaženemo Docker Desktop.
+2. Zaženemo PostgreSQL z ukazom `docker compose up -d`.
+3. Zaženemo backend.
+4. Zaženemo frontend.
 
 ## 5. Navodila za razvijalce
 
@@ -144,26 +244,50 @@ Projekt je shranjen na GitHubu:
 https://github.com/rokkk56/RecipeBook
 
 Za delo na projektu razvijalec najprej prenese repozitorij:
-
-    git clone https://github.com/rokkk56/RecipeBook.git
+git clone https://github.com/rokkk56/RecipeBook.git
 
 Nato odpre projekt v ustreznem razvojnem okolju.
 
-Pri razvoju uporabljamo naslednji način dela:
+Pri skupinskem razvoju uporabljamo naslednji način dela:
 
-1. Pred začetkom dela pridobimo najnovejšo različico kode z ukazom `git pull`.
-2. Spremembe v kodi preverimo in preizkusimo.
-3. Spremenjene datoteke dodamo z ukazom `git add .`.
-4. Spremembe shranimo z ukazom `git commit -m "Opis spremembe"`.
-5. Spremembe pošljemo na GitHub z ukazom `git push`.
+Pred začetkom dela pridobimo najnovejšo različico kode z ukazom git pull.
+
+Za novo funkcionalnost ustvarimo svojo vejo, na primer feature/iskanje-receptov.
+
+Spremembe v kodi preverimo in preizkusimo.
+
+Spremenjene datoteke dodamo z ukazom git add .
+
+Spremembe shranimo z ukazom git commit -m "Opis spremembe".
+
+Svojo vejo pošljemo na GitHub z ukazom git push.
+
+Po potrebi ustvarimo Pull Request za pregled in združitev sprememb v glavno vejo main.
 
 ## 6. Standardi kodiranja
 
-Pri razvoju projekta upoštevamo naslednje standarde:
+### Java (Backend)
+- Imena razredov zapisujemo v obliki PascalCase, npr. `Recept`, `ReceptRepository` in `ReceptRestEndpoint`.
+- Imena metod in spremenljivk zapisujemo v obliki camelCase, npr. `pridobiVseRecepte`.
+- Imena konstant zapisujemo z velikimi črkami in podčrtaji.
+- Vsak razred ima jasno določeno odgovornost. Entiteta predstavlja podatke, repository skrbi za dostop do baze, REST endpoint pa obravnava HTTP zahteve.
+- Uporabljamo ustrezne HTTP metode: GET za pridobivanje, POST za dodajanje, PUT za posodabljanje in DELETE za brisanje.
 
-- Imena spremenljivk in funkcij naj bodo razumljiva.
-- Koda naj bo pregledna in pravilno zamaknjena.
-- Posamezne funkcije naj opravljajo jasno določeno nalogo.
-- Imena datotek in map naj bodo smiselna.
-- Odvečno in neuporabljeno kodo odstranimo.
-- Obstoječe funkcionalnosti pred spremembami preverimo in testiramo.
+### JavaScript in React (Frontend)
+- Imena React komponent zapisujemo v obliki PascalCase, npr. `App`.
+- Imena spremenljivk in funkcij zapisujemo v obliki camelCase, npr. `filtriraniRecepti`, `dodajRecept` in `izbrisiRecept`.
+- React komponente ustvarjamo s funkcijami.
+- Za upravljanje stanja uporabljamo React Hook `useState`.
+- Klice na REST API izvajamo prek ločenih servisnih datotek v mapi `services`.
+- Za komunikacijo z backendom uporabljamo knjižnico Axios.
+
+### CSS
+- Imena CSS razredov zapisujemo z malimi črkami in vezaji, npr. `recept-kartica` in `iskanje-receptov`.
+- Za posamezne elemente uporabljamo ločene CSS selektorje.
+- Oblikovanje hranimo v datotekah CSS in ga ne mešamo z logiko aplikacije.
+
+### Git
+- Glavna veja projekta je `main`.
+- Commit sporočila naj bodo kratka in opisujejo opravljeno spremembo.
+- Pred nalaganjem sprememb na GitHub preverimo delovanje aplikacije.
+- V repozitorij ne dodajamo map `node_modules`, `target` in datotek `.env`.

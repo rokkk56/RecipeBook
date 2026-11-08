@@ -114,7 +114,7 @@ function App() {
 
     <div className="App">
       <header className="App-header">
-        <h1>RECEPTATOR</h1>
+        <h1>RecepieBook</h1>
         <p>Shrani in pripravi svoje najljubše jedi</p>
       </header>
 

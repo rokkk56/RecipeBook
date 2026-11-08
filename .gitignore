@@ -1,0 +1,12 @@
+# Okoljske nastavitve
+.env
+.env.*
+
+# IntelliJ IDEA
+.idea/
+
+# Backend
+backend/target/
+
+# Frontend
+frontend/node_modules/
