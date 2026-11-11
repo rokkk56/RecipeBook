@@ -7,7 +7,7 @@ body {
   font-family: Arial;
   background-color: #f7f7f2;
   color:#28332b;
-  background-image: url('C:\Users\rokec\OneDrive\Desktop\RIS\frontend\public\images\odzadje-recept.png');
+  background-image: url('./images/ozadje-recept.png');
   background-repeat: no-repeat;
   background-position: right top;
   background-size: cover;
