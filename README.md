@@ -1,17 +1,35 @@
 # RecipeBook
 
-## 1. O projektu
-RecipeBook je spletna aplikacija za shranjevanje, pregledovanje in upravljanje kuharskih receptov.
+## 1. Vizija projekta
 
-Uporabnikom omogoča:
-- Dodajanje novih receptov.
-- Pregledovanje shranjenih receptov.
-- Urejanje obstoječih receptov.
-- Brisanje receptov.
-- Iskanje receptov po nazivu.
-- Razvrščanje receptov po času priprave.
+### Opis rešitve
+Aplikacija RecipeBook je spletna rešitev, namenjena vsem, ki želijo enostavno organizirati, shranjevati in hitro dostopati do svojih najljubših kuharskih receptov na enem mestu. Glavni namen aplikacije je z digitalizacijo rešiti probleme pri organizaciji, iskanju in urejanju receptov, ki se pojavijo pri receptih shranjenih v fizični obliki.
 
-Namen aplikacije je omogočiti preprosto in pregledno upravljanje kuharskih receptov.
+### Ključne funkcionalnosti
+- Dodajanje novih receptov: Uporabnik lahko preprosto vnese nov recept z nazivom, opisom in časom priprave.
+- Pregledovanje receptov: Celovit vpogled v vse shranjene recepte v preglednem vmesniku.
+- Urejanje obstoječih receptov: Možnost posodabljanja podatkov in popravljanja vsebine receptov.
+- Brisanje receptov: Odstranitev neustreznih ali zastarelih receptov iz sistema.
+- Iskanje po nazivu: Hitro pronicanje in filtriranje receptov glede na vpisani niz v nazivu jedi. 
+- Razvrščanje po času priprave: Organizacija in sortiranje receptov glede na čas, potreben za njihovo pripravo.
+
+### Obseg rešitve: Aplikacija v trenutnem obsegu pokriva osnovno in zanesljivo upravljanje zbirke receptov za uporabnika, podpira delovanje baze podatkov prek Dockerja ter omogoča komunikacijo med uporabniškim vmesnikom in zalednim strežnikom. 
+Obseg rešitve pokriva:
+- Arhitekturo in okolje: Vzpostavitev ločenega zaledja in frontenda, pri čemer je podatkovna baza varno izolirana in zagnana prek containerjev.
+-Upravljanje podatkov (CRUD operacije): Polno podporo za ustvarjanje novih receptov, njihov pregled, posodabljanje obstoječih vnosov in brisanje podatkov.
+-Napredno obdelavo podatkov: Implementacijo funkcij za iskanje receptov po nazivu ter sortiranje in filtriranje glede na čas priprave, kar uporabniku omogoča hitro prilagajanje seznama.
+-Tehnično dokumentiranje: Vključitev avtomatizirane Swagger dokumentacije za pregledovanje REST API končnih točk
+
+### Morebitne omejitve: 
+- Aplikacija deluje le kot spletna rešitev in nima mobilne aplikacije.
+- Jezikovna in regijska omejitev: Uporabniški vmesnik in zbirka podatkov sta prilagojena izključno za vnos v slovenskem jeziku, brez podpore za večjezičnost ali lokalizacijo.
+- Brez zunanjih kulinaričnih integracij: Aplikacija deluje kot samostojen sistem in nima povezav z zunanjimi spletnimi viri, bazami živil za izračun hranilnih vrednosti (kalorij) ali orodji za samodejni uvoz receptov s spleta.
+
+### Besednjak
+- Recept: Osnovna domenska entiteta, ki predstavlja zapis o jedi ter vsebuje njen naziv, podroben opis priprave in čas, potreben za njeno izvedbo.
+- Naziv recepta: Jedinstveno besedilno ime jedi, ki služi kot primarni identifikator pri iskanju in prepoznavanju recepta.
+- Čas priprave: Število minut, ki so potrebne za celotno pripravo in kuhanje/peko posamezne jedi.
+- Zbirka receptov: Celoten nabor vseh v bazi shranjenih receptov, ki so uporabniku na voljo za pregled, filtriranje in urejanje.
 
 
 ## 2. Uporabljene tehnologije
