@@ -28,10 +28,20 @@ Obseg rešitve pokriva:
 - Brez zunanjih kulinaričnih integracij: Aplikacija deluje kot samostojen sistem in nima povezav z zunanjimi spletnimi viri, bazami živil za izračun hranilnih vrednosti (kalorij) ali orodji za samodejni uvoz receptov s spleta.
 
 ### Besednjak
-- Recept: Osnovna domenska entiteta, ki predstavlja zapis o jedi ter vsebuje njen naziv, podroben opis priprave in čas, potreben za njeno izvedbo.
-- Naziv recepta: Jedinstveno besedilno ime jedi, ki služi kot primarni identifikator pri iskanju in prepoznavanju recepta.
-- Čas priprave: Število minut, ki so potrebne za celotno pripravo in kuhanje/peko posamezne jedi.
-- Zbirka receptov: Celoten nabor vseh v bazi shranjenih receptov, ki so uporabniku na voljo za pregled, filtriranje in urejanje.
+- **Recept:** Osnovna domenska entiteta, ki predstavlja zapis o jedi ter vsebuje njen naziv, podroben opis priprave in čas, potreben za njeno izvedbo.
+- **Naziv recepta:** Jedinstveno besedilno ime jedi, ki služi kot primarni identifikator pri iskanju in prepoznavanju recepta.
+- **Sestavine:** Seznam živil in njihovih količin, potrebnih za pripravo jedi.
+- **Čas priprave:** Število minut, ki so potrebne za celotno pripravo in kuhanje/peko posamezne jedi.
+- **Zbirka receptov:** Celoten nabor vseh v bazi shranjenih receptov, ki so uporabniku na voljo za pregled, filtriranje in urejanje.
+- **Kategorija recepta:** Skupina, v katero spada recept glede na vrsto obroka, na primer zajtrk, kosilo, večerja ali sladica.
+- **Avtor recepta:** Uporabnik, ki je ustvaril in objavil recept v aplikaciji.
+- **Zbirka receptov:** Nabor vseh receptov, shranjenih v aplikaciji, ki jih uporabniki lahko pregledujejo in iščejo.
+- **Všeček:** Oznaka, s katero uporabnik pokaže, da mu je določen recept všeč.
+- **Ocena recepta:** Število zvezdic od 1 do 5, s katerimi uporabnik izrazi svoje mnenje o receptu.
+- **Komentar:** Besedilo, ki ga uporabnik objavi pod receptom, da deli svoje mnenje, izkušnjo ali nasvet.
+- **Tedenski jedilnik:** Načrt obrokov za posamezne dni v tednu, v katerega uporabnik dodaja izbrane recepte.
+- **Obrok:** Posamezen del dnevnega prehranjevanja, na primer zajtrk, kosilo ali večerja.
+- **Administrator:** Uporabnik s posebnimi pravicami, ki lahko moderira in odstranjuje neprimerne recepte ter komentarje.
 
 
 ## 2. Uporabljene tehnologije
