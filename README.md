@@ -1,4 +1,6 @@
 # RecipeBook
+#Projekt: RecipeBook
+#Člani ekipe: Rok Kokot Selinšek, Neža Kamenicki, Anej Filip
 
 ## 1. Vizija projekta
 
