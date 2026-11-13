@@ -311,4 +311,4 @@ Po potrebi ustvarimo Pull Request za pregled in združitev sprememb v glavno vej
 - V repozitorij ne dodajamo map `node_modules`, `target` in datotek `.env`.
 
 ## 7. DPU diagram
-![DPU-RecipeBook](.\frontend\src\images\DPU-RecipeBook.png)
+![DPU-RecipeBook](./frontend/src/images/DPU-RecipeBook.png)
