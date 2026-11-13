@@ -160,7 +160,7 @@ Nastavitve podatkovne baze:
 | Ime baze | recipebook |
 | Uporabniško ime | postgres |
 | Geslo | Vrednost iz datoteke `.env` |
-| Vrata računalnika | 5433 |
+| Vrata računalnika | 5434 |
 | Vrata vsebnika | 5432 |
 | Docker volume | recipebook-data |
 
@@ -291,3 +291,6 @@ Po potrebi ustvarimo Pull Request za pregled in združitev sprememb v glavno vej
 - Commit sporočila naj bodo kratka in opisujejo opravljeno spremembo.
 - Pred nalaganjem sprememb na GitHub preverimo delovanje aplikacije.
 - V repozitorij ne dodajamo map `node_modules`, `target` in datotek `.env`.
+
+## 7. DPU diagram
+![DPU-RecipeBook](.\frontend\src\images\DPU-RecipeBook.png)
