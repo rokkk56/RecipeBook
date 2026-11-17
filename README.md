@@ -324,3 +324,7 @@ Po potrebi ustvarimo Pull Request za pregled in združitev sprememb v glavno vej
 
 ## 7. DPU diagram
 ![DPU-RecipeBook](./frontend/src/images/DPU-RecipeBook.png)
+
+## 8. Uporabniške zgodbe
+
+Podrobnosti uporabniških zgodb, kriterijev sprejemljivosti in implementacije so zapisane v [user-stories.md](docs/user-stories.md).
