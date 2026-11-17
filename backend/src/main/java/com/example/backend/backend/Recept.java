@@ -16,16 +16,18 @@ public class Recept{
     private String opis;
     private String sestavine;
     private Integer casPriprave;
+    private int likes = 0;
 
     public Recept() {
     }
 
-    public Recept(Integer id, String naziv, String opis, String sestavine, Integer casPriprave) {
+    public Recept(Integer id, String naziv, String opis, String sestavine, Integer casPriprave, Integer likes) {
         this.id = id;
         this.naziv = naziv;
         this.opis = opis;
         this.sestavine = sestavine;
         this.casPriprave = casPriprave;
+        this.likes = likes != null ? likes : 0;
     }
 
     public Integer getId() {
@@ -66,5 +68,13 @@ public class Recept{
 
     public void setCasPriprave(Integer casPriprave) {
         this.casPriprave = casPriprave;
+    }
+
+    public int getLikes() {
+        return likes;
+    }
+
+    public void setLikes(int likes) {
+        this.likes = likes;
     }
 }

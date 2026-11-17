@@ -20,12 +20,22 @@ const izbrisiRecept = (id) => {
   return api.delete(`/recepti/${id}`);
 };
 
+const vseckajRecept = (id) => {
+  return api.post(`/recepti/${id}/like`);
+};
+
+const odstraniVsecek = (id) => {
+  return api.post(`/recepti/${id}/unlike`);
+};
+
 const receptService = {
   pridobiVseRecepte,
   pridobiRecept,
   dodajRecept,
   posodobiRecept,
   izbrisiRecept,
+  vseckajRecept,
+  odstraniVsecek,
 };
 
 export default receptService;

@@ -45,4 +45,22 @@ public class ReceptRestEndpoint {
     public void izbrisiRecept(@PathVariable Integer id) {
         receptRepository.deleteById(id);
     }
+
+    @PostMapping("/{id}/like")
+    public Recept vseckajRecept(@PathVariable Integer id) {
+        return receptRepository.findById(id).map(recept -> {
+            recept.setLikes(recept.getLikes() + 1);
+            return receptRepository.save(recept);
+        }).orElse(null);
+    }
+
+    @PostMapping("/{id}/unlike")
+    public Recept odstraniVsecek(@PathVariable Integer id) {
+        return receptRepository.findById(id).map(recept -> {
+            if (recept.getLikes() > 0) {
+                recept.setLikes(recept.getLikes() - 1);
+            }
+            return receptRepository.save(recept);
+        }).orElse(null);
+    }
 }
