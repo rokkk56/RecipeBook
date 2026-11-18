@@ -108,3 +108,30 @@ Then: na mestu kjer bi morali biti njegovi shranjeni recepti je sporočilo recep
 **podnalogi**
 - TASK 1: https://github.com/rokkk56/RecipeBook/issues/6
 - TASK 2: https://github.com/rokkk56/RecipeBook/issues/7
+
+### US-03: Všečkanje receptov
+* **Zgodba:** Kot *registriran uporabnik* želim *všečkati recept*, da *lahko izrazim svoje navdušenje nad jedjo in shranim svoje priljubljene recepte*.
+
+### Sprejemni kriteriji
+* ** AC-01: (Uspešno všečkanje recepta):**
+  * **Given:** Uporabnik pregleduje seznam ali podrobnosti posameznega recepta.
+  * **When:** Klikne gumb »Všeček«.
+  * **Then:** Števec všečkov se poveča za 1, gumb pa spremeni videz, kar označuje, da je recept všečkan.
+
+* ** AC-02: (Preklic všečka / Odstranitev):**
+  * **Given:** Uporabnik ima recept že všečkan.
+  * **When:** Ponovno klikne gumb »Všeček«.
+  * **Then:** Števec všečkov se zmanjša za 1, gumb pa se vrne v prvotno stanje.
+
+* ** AC-03: (Scenarij napake ob omrežni napaki):**
+  * **Given:** Uporabnik želi všečkati recept, a pride do prekinitve povezave s strežnikom.
+  * **When:** Klikne gumb »Všeček«.
+  * **Then:** Sistem prikaže ustrezno obvestilo o napaki, število všečkov pa ostane nespremenjeno.
+
+### Podrobnosti implementacije
+* **Backend:** 
+  * V entiteto `Recipe` dodati polje `likes` (števec všečkov) ali ustvariti ustrezno logiko v REST kontrolerju za povečanje/zmanjšanje števca.
+  * Posodobiti REST API končne točke, da omogočajo posodobitev števila všečkov za posamezen recept.
+* **Frontend:**
+  * V React komponento za prikaz recepta dodati interaktiven gumb in prikaz trenutnega števila všečkov.
+  *  Poslati zahtevek na zaledje ob kliku na gumb ter dinamično osvežiti stanje v vmesniku.
