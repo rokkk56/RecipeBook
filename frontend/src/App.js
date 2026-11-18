@@ -108,7 +108,16 @@ function App() {
       : receptService.vseckajRecept(id);
 
     akcija
-      .then(() => {
+      .then((response) => {
+        // response.data je posodobljen recept, ki ga vrne backend
+        const posodobljenRecept = response.data;
+
+        // Posodobimo samo tisti recept v obstoječem seznamu, ne da bi rušili vrstni red
+        setRecepti(prevRecepti => 
+          prevRecepti.map(r => r.id === id ? posodobljenRecept : r)
+        );
+
+        // Posodobimo lokalni Set všečkanih
         setVseckaniIds(prev => {
           const next = new Set(prev);
           if (jeVseckan) {
@@ -118,7 +127,6 @@ function App() {
           }
           return next;
         });
-        return naloziRecepte();
       })
       .catch((error) => {
         setNapaka("Recepta ni bilo mogoče všečkati.");
