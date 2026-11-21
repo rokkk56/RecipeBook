@@ -37,6 +37,7 @@ public class ReceptRestEndpoint {
             recept.setOpis(noviRecept.getOpis());
             recept.setSestavine(noviRecept.getSestavine());
             recept.setCasPriprave(noviRecept.getCasPriprave());
+            recept.setKategorija(noviRecept.getKategorija());
             return receptRepository.save(recept);
         }).orElse(null);
     }
@@ -44,5 +45,10 @@ public class ReceptRestEndpoint {
     @DeleteMapping("/{id}")
     public void izbrisiRecept(@PathVariable Integer id) {
         receptRepository.deleteById(id);
+    }
+
+    @GetMapping("/kategorija/{kategorija}")
+    public List<Recept> receptiPoKategoriji(@PathVariable Kategorija kategorija) {
+        return receptRepository.findByKategorija(kategorija);
     }
 }

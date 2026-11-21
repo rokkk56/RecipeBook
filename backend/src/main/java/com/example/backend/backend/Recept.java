@@ -1,9 +1,6 @@
 package com.example.backend.backend;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
 @Entity
 public class Recept{
@@ -16,6 +13,8 @@ public class Recept{
     private String opis;
     private String sestavine;
     private Integer casPriprave;
+    @Enumerated(EnumType.STRING)
+    private Kategorija kategorija;
 
     public Recept() {
     }
@@ -26,6 +25,15 @@ public class Recept{
         this.opis = opis;
         this.sestavine = sestavine;
         this.casPriprave = casPriprave;
+    }
+
+    public Recept(Integer id, String naziv, String opis, String sestavine, Integer casPriprave, Kategorija kategorija) {
+        this.id = id;
+        this.naziv = naziv;
+        this.opis = opis;
+        this.sestavine = sestavine;
+        this.casPriprave = casPriprave;
+        this.kategorija = kategorija;
     }
 
     public Integer getId() {
@@ -66,5 +74,13 @@ public class Recept{
 
     public void setCasPriprave(Integer casPriprave) {
         this.casPriprave = casPriprave;
+    }
+
+    public Kategorija getKategorija() {
+        return kategorija;
+    }
+
+    public void setKategorija(Kategorija kategorija) {
+        this.kategorija = kategorija;
     }
 }
