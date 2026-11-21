@@ -2,6 +2,7 @@
   box-sizing: border-box;
 }
 
+/*Odzadje in glava struktura*/
 body {
   margin: 0;
   font-family: Arial;
@@ -9,7 +10,7 @@ body {
   color:#28332b;
   background-image: url('./images/ozadje-recept.png');
   background-repeat: no-repeat;
-  background-position: right top;
+  background-position: center top;
   background-size: cover;
   background-attachment: fixed;
 }
@@ -18,6 +19,7 @@ body {
   min-height: 100vh;
 }
 
+/*Glava aplikacije*/
 .App-header {
   background-color: #315c42;
   color: whitesmoke;
@@ -26,24 +28,83 @@ body {
   top: 0;
 }
 
-.header h1 {
+.App-header h1 {
   margin: 0 0 10px;
   font-size: 32px;
-  font-family: 'Playfair Display', serif;;
+  font-family: 'Playfair Display', serif;
 }
 
-.header p {
+.App-header p {
   margin: 0;
   color: #e1eee3;
   font-family: 'Trebuchet MS', sans-serif;
 }
 
+/*Obrazec za dodajanje receptov*/
 .main {
-  max-width: 1000px;
-  margin: 40px auto;
+  max-width: 1200px;
+  margin: 35px auto;
   padding: 24px;
 }
 
+.main form input,
+.main form textarea,
+.main form select {
+  width: 100%;
+  padding: 12px 14px;
+  border: 1px solid #dfd2c4;
+  border-radius: 10px;
+  background-color: #fff;
+  color: #3f382f;
+  font: inherit;
+  font-size: 0.95rem;
+  box-sizing: border-box;
+}
+
+.main form textarea {
+  min-height: 65px;
+  resize: vertical;
+}
+
+.main form {
+  max-width: 750px;
+  margin: 0 auto 45px;
+  padding: 30px 35px;
+  background: rgba(255, 253, 249, 0.97);
+  border: 1px solid #eee4d8;
+  border-radius: 20px;
+  box-shadow: 0 8px 28px rgba(75, 56, 38, 0.10);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.main form input:focus,
+.main form textarea:focus {
+  outline: none;
+  border-color: #a67c5b;
+  box-shadow: 0 0 0 3px rgba(166, 124, 91, 0.14);
+}
+
+.main form button {
+  margin-top: 15px;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 10px;
+  background-color: #806044;
+  color: white;
+  font: inherit;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.main form h3 {
+  margin: 0 0 12px;
+  font-size: 25px;
+  color: #244d38;
+}
+
+/*Naslovi in glavni gumbi*/
 .section-header {
   display: flex;
   align-items: center;
@@ -65,6 +126,7 @@ body {
   font-weight: bold;
 }
 
+/*Katrice receptov*/
 .recept-kartica {
   display: flex;
   align-items: center;
@@ -102,60 +164,7 @@ body {
   cursor: pointer;
 }
 
-.main form {
-  max-width: 600px;
-  margin: 0 auto 35px;
-  padding: 30px;
-  background: #fffdf9;
-  border: 1px solid #eee4d8;
-  border-radius: 18px;
-  box-shadow: 0 8px 28px rgba(75, 56, 38, 0.07);
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  box-sizing: border-box;
-}
-
-
-.main form input,
-.main form textarea {
-  width: 100%;
-  padding: 8px 10px;
-  border: 1px solid #dfd2c4;
-  border-radius: 10px;
-  background-color: #fff;
-  color: #3f382f;
-  font: inherit;
-  font-size: 0.95rem;
-  box-sizing: border-box;
-  transition: border-color 0.2s, box-shadow 0.2s;
-}
-
-.main form textarea {
-  min-height: 20px;
-  resize: vertical;
-}
-
-.main form input:focus,
-.main form textarea:focus {
-  outline: none;
-  border-color: #a67c5b;
-  box-shadow: 0 0 0 3px rgba(166, 124, 91, 0.14);
-}
-
-.main form button {
-  margin-top: 15px;
-  padding: 10px 15px;
-  border: none;
-  border-radius: 10px;
-  background-color: #806044;
-  color: white;
-  font: inherit;
-  font-weight: 700;
-  cursor: pointer;
-}
-
-
+/*Iskanje in filtriranje*/
 .iskanje-receptov,
 select {
   padding: 10px;
@@ -176,4 +185,79 @@ select {
 select:focus {
   outline: none;
   border-color: #8b6548;
+}
+
+
+/* Kategorije receptov */
+.kategorije-list {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 18px;
+  margin: 20px 0 25px;
+}
+
+.kategorija-kartica {
+  min-height: 145px;
+  padding: 20px 12px;
+  border: 2px solid transparent;
+  border-radius: 18px;
+  cursor: pointer;
+  font: inherit;
+  font-size: 19px;
+  font-weight: bold;
+  color: #244d38;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.kategorija-kartica span {
+  font-size: 42px;
+}
+
+.kategorija-kartica:nth-child(1) {
+  background: #eee8d8;
+}
+
+.kategorija-kartica:nth-child(2) {
+  background: #dfe8dc;
+}
+
+.kategorija-kartica:nth-child(3) {
+  background: #e1e7e9;
+}
+
+.kategorija-kartica:nth-child(4) {
+  background: #e9e2d9;
+}
+
+.kategorija-kartica:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.10);
+}
+
+.kategorija-kartica:focus {
+  outline: 2px solid #315c42;
+  outline-offset: 3px;
+}
+
+.gumb-vse-kategorije {
+  display: inline-block;
+  margin: 0 0 25px;
+  padding: 12px 22px;
+  border: none;
+  border-radius: 10px;
+  background: #315c42;
+  color: white;
+  font-size: 15px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.gumb-vse-kategorije:hover {
+  background: #244832;
+  transform: translateY(-2px);
 }

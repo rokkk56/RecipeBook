@@ -6,15 +6,24 @@ function App() {
   const [recepti,setRecepti] = useState([]);
   const [iskanje, setIskanje] = useState("");
   const [razvrstitev, setRazvrstitev] = useState("privzeto");
-  const[nalaganje,setNalaganje] = useState(true);
-  const[napaka,setNapaka] = useState("");
-  const[sporocilo,setSporocilo]= useState("");
+  const [nalaganje,setNalaganje] = useState(true);
+  const [napaka,setNapaka] = useState("");
+  const [sporocilo,setSporocilo]= useState("");
 
-  const[naziv,setNaziv] = useState("");
-  const[opis,setOpis]=useState("");
-  const[sestavine,setSestavine]=useState("");
-  const[casPriprave,setCasPriprave] = useState("");
+  const [naziv,setNaziv] = useState("");
+  const [opis,setOpis]=useState("");
+  const [sestavine,setSestavine]=useState("");
+  const [casPriprave,setCasPriprave] = useState("");
   const [receptZaUrejanje, setReceptZaUrejanje] = useState(null);
+  const [kategorija, setKategorija] = useState("ZAJTRK")
+  const [izbranaKategorija, setIzbranaKategorija] = useState(null);
+
+  const kategorije = [
+  { vrednost: "ZAJTRK", naziv: "Zajtrk", emoji: "🍳" },
+  { vrednost: "KOSILO", naziv: "Kosilo", emoji: "🍲" },
+  { vrednost: "VECERJA", naziv: "Večerja", emoji: "🍽️" },
+  { vrednost: "SLADICE", naziv: "Sladice", emoji: "🍰" }
+  ];
 
   const naloziRecepte = () => {
     return receptService
@@ -45,6 +54,7 @@ function App() {
       opis,
       sestavine,
       casPriprave: Number(casPriprave),
+      kategorija
     };
 
       const zahteva = receptZaUrejanje
@@ -57,6 +67,7 @@ function App() {
         setOpis("");
         setSestavine("");
         setCasPriprave("");
+        setKategorija("ZAJTRK");
         setSporocilo(
         receptZaUrejanje
         ? "Recept je bil uspešno posodobljen."
@@ -76,6 +87,7 @@ function App() {
     setOpis(recept.opis);
     setSestavine(recept.sestavine);
     setCasPriprave(String(recept.casPriprave));
+    setKategorija(recept.kategorija || "ZAJTRK");
     setSporocilo("");
     setNapaka("");
   };
@@ -97,7 +109,8 @@ function App() {
   };
 //naziv
   const filtriraniRecepti = recepti.filter((recept) =>
-  recept.naziv.toLowerCase().includes(iskanje.toLowerCase())
+  recept.naziv.toLowerCase().includes(iskanje.toLowerCase()) &&
+  (!izbranaKategorija || recept.kategorija === izbranaKategorija)
   );
 //razvrščanje
   const razvrsceniRecepti = [...filtriraniRecepti].sort((a, b) => {
@@ -158,14 +171,62 @@ function App() {
             required
           />
 
+          <label htmlFor="kategorija">Kategorija</label>
+            <select
+              id="kategorija"
+              value={kategorija}
+              onChange={(event) => setKategorija(event.target.value)}
+              required
+          >
+              { kategorije.map((kat) => (
+                <option key={kat.vrednost} value={kat.vrednost}>
+                  {kat.naziv}
+                </option>
+                ))}
+          </select>
+
           <button type="submit">{receptZaUrejanje ? "Shrani spremembe" : "Dodaj recept"}</button>
         </form>
+
+        <h2>Kategorije receptov</h2>
+
+        <div className="kategorije-list">
+          {kategorije.map((kat) => (
+            <button
+              type="button"
+              className="kategorija-kartica"
+              key={kat.vrednost}
+              onClick={() => setIzbranaKategorija(kat.vrednost)}
+            >
+              <span>{kat.emoji}</span>
+              <strong>{kat.naziv}</strong>
+            </button>
+          ))}
+        </div>
+
+        {izbranaKategorija && (
+          <button className="gumb-vse-kategorije" type="button" onClick={() => setIzbranaKategorija(null)}>
+            Vse kategorije
+          </button>
+        )}
+
+        {izbranaKategorija && (
+          <h2>
+            Recepti: {kategorije.find(
+            (kat) => kat.vrednost === izbranaKategorija
+            )?.naziv}
+          </h2>
+        )}
 
         {nalaganje && <p>Nalaganje receptov...</p>}
         {napaka && <p>{napaka}</p>}
         {sporocilo && <p>{sporocilo}</p>}
 
-        {!nalaganje && !napaka && recepti.length === 0 && (<p>Trenutno še ni shranjenih receptov</p>)}
+        {!nalaganje && !napaka &&
+         izbranaKategorija &&
+         filtriraniRecepti.length === 0 && ( 
+         <p>V tej kategoriji trenutno ni receptov.</p>
+         )}
 
         <input
           type="text"
@@ -192,6 +253,7 @@ function App() {
                 <p>{recept.opis}</p>
                 <p><strong>Sestavine:</strong> {recept.sestavine}</p>
                 <span>{recept.casPriprave} minut</span><br></br>
+                <p><strong>Kategorija:</strong> {recept.kategorija}</p>
                 <button type="button" onClick={() => izbrisiRecept(recept.id)}>Izbriši</button>
                 <button type="button" onClick={() => urediRecept(recept)}>Uredi</button>
               </div>
