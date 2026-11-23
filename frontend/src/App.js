@@ -1,6 +1,7 @@
 import React, {useEffect,useState} from 'react';
 import './App.css';
 import receptService from "./services/receptService"
+import TedenskiJedilnik from "./components/TedenskiJedilnik";
 
 function App() {
   const [recepti,setRecepti] = useState([]);
@@ -17,6 +18,7 @@ function App() {
   const [receptZaUrejanje, setReceptZaUrejanje] = useState(null);
   const [kategorija, setKategorija] = useState("ZAJTRK")
   const [izbranaKategorija, setIzbranaKategorija] = useState(null);
+  const[stran,setStran] = useState("recepti");
 
   const kategorije = [
   { vrednost: "ZAJTRK", naziv: "Zajtrk", emoji: "🍳" },
@@ -54,7 +56,7 @@ function App() {
       opis,
       sestavine,
       casPriprave: Number(casPriprave),
-      kategorija
+      kategorija,
     };
 
       const zahteva = receptZaUrejanje
@@ -129,7 +131,15 @@ function App() {
       <header className="App-header">
         <h1>RecepieBook</h1>
         <p>Shrani in pripravi svoje najljubše jedi</p>
+        <nav className="zavihki">
+          <button type="button" onClick={() => setStran("recepti")}>Recepti</button>
+          <button type="button" onClick={() => setStran("jedilnik")}>Tedenski jedilnik</button>
+        </nav>
       </header>
+
+      {stran === "jedilnik" ? (
+          <TedenskiJedilnik />
+      ) : (
 
       <main className='main'>
         
@@ -261,6 +271,7 @@ function App() {
           ))}
         </div>
       </main>
+        )}
     </div>
   );
 }

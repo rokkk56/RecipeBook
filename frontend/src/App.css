@@ -261,3 +261,71 @@ select:focus {
   background: #244832;
   transform: translateY(-2px);
 }
+
+/* Zavihki v glavi */
+.zavihki {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+/* Tedenski jedilnik */
+.jedilnik-navigacija {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+
+.jedilnik-teden {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 8px;
+}
+
+.jedilnik-dan {
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 8px;
+  background: #fff;
+}
+
+.jedilnik-dan h4 {
+  margin: 0 0 8px;
+  text-align: center;
+}
+
+.jedilnik-obrok {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 6px 0;
+  border-top: 1px solid #eee;
+}
+
+.jedilnik-obrok-naziv {
+  font-weight: bold;
+  font-size: 0.85rem;
+}
+
+.jedilnik-izbira {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 20px;
+  padding: 12px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background: #fff;
+}
+
+.jedilnik-izbira h3 {
+  width: 100%;
+  margin: 0;
+}
+
+.jedilnik-napaka {
+  color: #b00020;
+}
