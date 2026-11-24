@@ -328,3 +328,52 @@ Po potrebi ustvarimo Pull Request za pregled in združitev sprememb v glavno vej
 ## 8. Uporabniške zgodbe
 
 Podrobnosti uporabniških zgodb, kriterijev sprejemljivosti in implementacije so zapisane v [user-stories.md](docs/user-stories.md).
+
+## 9. Razredni diagram
+
+![Razredni diagram RecipeBook](./frontend/src/images/razredni-diagram.png)
+
+### 9.1 Vloga in namen razredov
+
+| Razred | Vloga in namen |
+|---|---|
+| `Uporabnik` | Registriran uporabnik aplikacije. Hrani podatke za prijavo in izvaja vse akcije registriranega uporabnika iz DPU: dodaja in spreminja svoje recepte, jih všečka, ocenjuje, komentira in jih dodaja v tedenski jedilnik. Neregistriran uporabnik nima razreda, ker o njem ne hranimo nobenih podatkov; recepte si lahko samo ogleduje in jih išče po kategorijah. |
+| `Administrator` | Podrazred razreda `Uporabnik` (dedovanje). Ima vse zmožnosti registriranega uporabnika, poleg tega pa lahko briše neprimerne recepte in komentarje. |
+| `Recept` | Osrednja entiteta aplikacije. Hrani naziv, opis, sestavine, čas priprave in kategorijo. |
+| `Kategorija` | Naštevni tip z vrednostmi `ZAJTRK`, `KOSILO`, `VECERJA` in `SLADICE`. Uporablja se za iskanje receptov po kategorijah in za izbiro receptov v tedenskem jedilniku. |
+| `Komentar` | Besedilo, ki ga uporabnik objavi pod receptom. |
+| `Ocena` | Ocena recepta od 1 do 5, ki jo odda uporabnik. Iz vseh ocen recepta se izračuna povprečna ocena. |
+| `TedenskiJedilnik` | Predstavlja vnos v tedenskem jedilniku uporabnika. Hrani datum, kategorijo in recept, ki ga bo uporabnik pripravil.. |
+| `ReceptRestEndpoint` | REST kontroler za recepte (`/api/recepti`). Sprejema zahteve frontenda in jih posreduje repozitoriju. |
+| `ReceptRepository` | Vmesnik (Spring Data JPA) za branje in zapisovanje receptov v podatkovno bazo. |
+| `TedenskiJedilnikRestEndpoint` | REST kontroler za tedenski jedilnik (`/api/jedilnik`). |
+| `TedenskiJedilnikRepository` | Vmesnik (Spring Data JPA) za branje in zapisovanje vnosov tedenskega jedilnika v podatkovno bazo. |
+
+### 9.2 Povezave med razredi
+
+- **Dedovanje:** `Administrator` je poseben `Uporabnik` in podeduje vse njegove atribute in metode.
+- **Asociacije:** uporabnik objavi 0 ali več receptov, napiše 0 ali več komentarjev in odda 0 ali več ocen. Med uporabnikom in receptom je tudi asociacija »všečka« z večkratnostjo 0..* na obeh straneh, saj lahko en uporabnik všečka več receptov in en recept všečka več uporabnikov.
+- **Kompozicije:** komentarji in ocene pripadajo receptu in ne morejo obstajati brez njega, zato se ob izbrisu recepta izbrišejo tudi oni. Enako vnosi tedenskega jedilnika pripadajo uporabniku.
+- **Usmerjena asociacija:** vsak vnos tedenskega jedilnika kaže na natanko en recept. Isti recept je lahko v jedilniku večkrat.
+- **Odvisnosti (črtkane puščice):** `Recept`in `TedenskiJedilnik` uporabljata naštevni tip `Kategorija`. Repozitorija sta odvisna od entitet, ki jih shranjujet
+- **Kontroler → repozitorij:** vsak REST kontroler ima referenco na svoj repozitorij in prek njega dostopa do podatkovne baze.
+
+### 9.3 Ključne metode
+
+| Metoda | Naloga |
+|---|---|
+| `Uporabnik.prijava(email, geslo)` | Preveri podatke za prijavo. Brez prijave uporabnik ne more izvajati akcij registriranega uporabnika. |
+| `Uporabnik.dodajRecept(recept)` | Ustvari nov recept, katerega avtor je ta uporabnik. |
+| `Uporabnik.spremeniRecept(recept)` | Posodobi podatke recepta, vendar samo če je uporabnik njegov avtor (preveri z `Recept.jeAvtor`). |
+| `Uporabnik.vseckajRecept(recept)` | Doda všeček receptu oziroma ga odstrani, če je recept že všečkan. |
+| `Uporabnik.oceniRecept(recept, vrednost)` | Ustvari oceno od 1 do 5 za recept drugega uporabnika. |
+| `Uporabnik.komentirajRecept(recept, besedilo)` | Ustvari komentar pod receptom. |
+| `Uporabnik.dodajVJedilnik(datum, kategorija, recept)` | Doda recept v tedenski jedilnik na izbrani dan in obrok. |
+| `Administrator.izbrisiRecept(recept)` | Izbriše neprimeren recept skupaj z njegovimi komentarji in ocenami. |
+| `Administrator.izbrisiKomentar(komentar)` | Izbriše neprimeren komentar. |
+| `Recept.povprecnaOcena()` | Izračuna povprečje vseh ocen recepta. |
+| `Recept.steviloVseckov()` | Vrne število uporabnikov, ki so recept všečkali. |
+| `TedenskiJedilnik.jeUrejljiv()` | Vrne `true`, če je vnos mogoče urejati glede na datum.. |
+| `ReceptRestEndpoint.receptiPoKategoriji(kategorija)` | Vrne recepte izbrane kategorije (funkcionalnost iskanja po kategorijah). |
+| `TedenskiJedilnikRestEndpoint.obrokiVTednu(od)` | Vrne vse vnose jedilnika od podanega ponedeljka do nedelje. |
+| `TedenskiJedilnikRestEndpoint.dodajKategorijo(kategorija)` | Shrani izbrani recept za določen dan in kategorijo v jedilnik. |
